@@ -1,1 +1,6 @@
 *.xlsx
+
+!/doc/*.xlsx
+
+# Ignore temporary Excel
+~*
