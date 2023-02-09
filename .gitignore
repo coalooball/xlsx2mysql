@@ -4,3 +4,8 @@
 
 # Ignore temporary Excel
 ~*
+
+# Ignore test files
+/config/*.yaml
+/config/*.yml
+/test
