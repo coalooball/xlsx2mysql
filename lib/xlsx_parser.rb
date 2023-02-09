@@ -6,7 +6,7 @@ class XlsxParser
     @worksheet_name = worksheet_name
     @doc = SimpleXlsxReader.open(doc_name)
     @worksheet = @doc.sheets[find_worksheet_index]
-    p @worksheet.rows.slurp
+    @data = @worksheet.rows.slurp
   end
 
   def find_worksheet_index
@@ -19,10 +19,27 @@ class XlsxParser
     index
   end
 
+  def cell_value(index)
+    if /(?<col>[A-Z]+)(?<row>\d+)/.match(index)
+      col = $1
+      row = $2.to_i
+    else
+      raise IndexError, 'Unsupported format of index of cell'
+    end
+    return nil unless @data[row - 1]
+    @data[row - 1][letter_to_number(col)]
+  end
+
+  def letter_to_number(letter)
+    number = -1
+    ('A'..letter).each{number += 1}
+    number
+  end
+
 end
 
 if __FILE__ == $0
-  wb_name = 'spec.xlsx'
+  wb_name = 'doc/xlsx_parser.xlsx'
   ws_name = 'nil'
   ws = XlsxParser.new(wb_name, ws_name)
 end
