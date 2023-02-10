@@ -1,5 +1,3 @@
-require 'simple_xlsx_reader'
-
 class XlsxParser
   
   def initialize(doc_name, worksheet_name)

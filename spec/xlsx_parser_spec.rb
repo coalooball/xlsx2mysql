@@ -1,11 +1,5 @@
-$: << File.expand_path('../../lib', __FILE__)
-
 doc_path = File.expand_path('../../doc', __FILE__)
-
 xlsx_parser_path = File.join(doc_path, 'xlsx_parser.xlsx')
-
-require 'rspec/autorun'
-require 'xlsx_parser'
 
 describe XlsxParser do
 
