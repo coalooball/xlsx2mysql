@@ -16,35 +16,6 @@ class MysqlController
     @my.query("DESCRIBE #{table}").entries
   end
 
-  def generate_table_dsl_code(table, overwrite = false)
-    # table_yaml_path = File.join(CONFIG_PATH, "#{table}.yml")
-    # table_info_hash = {}
-    code_context = []
-    describe_table(table).each do |record|
-      field = record[0]
-      type = record[1]
-      null = record[2]
-      key = record[3]
-      default = record[4]
-      extra = record[5]
-      table_info_hash[field] = {}
-      # table_info_hash[field]["type"] = type
-      # table_info_hash[field]["default"] = default
-      table_info_hash[field]["column"] = nil
-      table_info_hash[field]["regexp"] = nil
-    end
-    unless overwrite
-      if File.exist?(table_yaml_path)
-        puts "#{table_yaml_path} exists."
-        return nil
-      end
-    end
-    File.open(table_yaml_path, 'w') do |f|
-      f.write(table_info_hash.to_yaml)
-    end
-    nil
-  end
-
   def insert_one_record(table, key_values)
     keys = []
     values = []
