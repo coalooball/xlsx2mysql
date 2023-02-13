@@ -1,5 +1,8 @@
 class MysqlController
   attr_accessor :host, :port, :user, :password, :database, :charset
+  def initialize
+    @my = nil
+  end
 
   def connect(db_info_path, env)
     mysql_url = "mysql://#{user}:#{password}@#{host}:#{port}/#{database}?charset=#{charset}"
@@ -7,10 +10,12 @@ class MysqlController
   end
 
   def describe_table(table)
+    raise "MySQL is not connected!" unless @my
     @my.query("DESCRIBE #{table}").entries
   end
-
+  
   def insert_one_record(table, key_values)
+    raise "MySQL is not connected!" unless @my
     keys = []
     values = []
     question_marks = []
