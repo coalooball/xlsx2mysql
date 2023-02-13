@@ -1,13 +1,7 @@
-require 'mysql'
-require 'yaml'
-
-CONFIG_PATH = 'config'
-DB_INFO_PATH = File.join(CONFIG_PATH, 'db_info.yml')
-
 class MysqlController
 
-  def initialize(env)
-    yaml_data = YAML.load(File.open(DB_INFO_PATH))
+  def initialize(db_info_path, env)
+    yaml_data = YAML.load(File.open(db_info_path))
     host = yaml_data[env]["host"]
     port = yaml_data[env]["port"] || 3306
     user = yaml_data[env]["user"]
@@ -22,9 +16,10 @@ class MysqlController
     @my.query("DESCRIBE #{table}").entries
   end
 
-  def generate_table_yaml(table, overwrite = false)
-    table_yaml_path = File.join(CONFIG_PATH, "#{table}.yml")
-    table_info_hash = {}
+  def generate_table_dsl_code(table, overwrite = false)
+    # table_yaml_path = File.join(CONFIG_PATH, "#{table}.yml")
+    # table_info_hash = {}
+    code_context = []
     describe_table(table).each do |record|
       field = record[0]
       type = record[1]
@@ -68,10 +63,4 @@ SQL
     @my.prepare(sql).execute(*values)
   end
 
-end
-
-if __FILE__ == $0
-  my = MysqlController.new('APB-DEV')
-  # my.generate_table_yaml('dmtlnbcd', true)
-  my.insert_one_record('dmtlnbcd', {'ROW' => '1'})
 end

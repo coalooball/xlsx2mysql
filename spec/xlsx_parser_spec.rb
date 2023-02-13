@@ -6,7 +6,7 @@ describe XlsxParser do
   let(:sheet2) { XlsxParser.new(xlsx_parser_path, 'Sheet2') }
 
   it "finds the index of worksheet Sheet2" do  
-    expect(sheet2.find_worksheet_index).to eq(1)
+    expect(sheet2.find_worksheet_index).to eq(1)  
   end
 
   xit "raise Error when not found index of worksheet" do
