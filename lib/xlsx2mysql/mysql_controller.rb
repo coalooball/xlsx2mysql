@@ -1,13 +1,7 @@
 class MysqlController
+  attr_accessor :host, :port, :user, :password, :database, :charset
 
-  def initialize(db_info_path, env)
-    yaml_data = YAML.load(File.open(db_info_path))
-    host = yaml_data[env]["host"]
-    port = yaml_data[env]["port"] || 3306
-    user = yaml_data[env]["user"]
-    password = yaml_data[env]["password"]
-    database = yaml_data[env]["database"]
-    charset = yaml_data[env]["charset"] || 'utf8mb4'
+  def connect(db_info_path, env)
     mysql_url = "mysql://#{user}:#{password}@#{host}:#{port}/#{database}?charset=#{charset}"
     @my = Mysql.connect(mysql_url)
   end
