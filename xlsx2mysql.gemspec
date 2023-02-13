@@ -1,6 +1,8 @@
+require_relative 'lib/xlsx2mysql/version'
+
 Gem::Specification.new do |s|
   s.name        = "xlsx2mysql"
-  s.version     = "0.0.0"
+  s.version     =  Xlsx2Mysql::VERSION
   s.summary     = "A simple data migration gem"
   s.description = "A gem for inserting data to mysql from Excel(xlsx)"
   s.authors     = ["Cyan Yan"]
