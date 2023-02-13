@@ -10,6 +10,6 @@ Gem::Specification.new do |s|
   s.license     = "MIT"
   
   s.add_dependency 'mysql', '~> 4.0.0'
-  s.add_dependency 'simple_xlsx_reader', '~> 2.0.0'
+  s.add_dependency 'xlsx-DSL', '~> 0.2.3'
   s.add_development_dependency 'rspec', '~> 3.12.0'
 end
