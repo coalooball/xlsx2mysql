@@ -30,6 +30,22 @@ module Xlsx2Mysql
       instance_eval(&block)
     end
 
+    def method_missing(name, *args)
+      if name =~ /[A-Z]+/
+        Column.new(name, args[0])
+      else
+        super
+      end
+    end
+
+    def Object.const_missing(name)
+      if name =~ /[A-Z]+/
+        Column.new(name)
+      else
+        super
+      end
+    end
+
     private
 
     def define_methods_with_field_name
