@@ -7,6 +7,16 @@ module Xlsx2Mysql
       @ws[index]
     end
 
+    def max_row
+      load unless @ws
+      @ws.max_row.to_i
+    end
+    
+    def ws
+      load unless @ws
+      @ws
+    end
+
     private
 
     def load

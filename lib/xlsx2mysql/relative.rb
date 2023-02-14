@@ -5,6 +5,7 @@ module Xlsx2Mysql
     def initialize(name = nil, &block)
       @fields_hash = {}
       instance_eval(&block)
+      run
     end
 
     def mysql_ref
@@ -53,6 +54,19 @@ module Xlsx2Mysql
         define_singleton_method field do |column|
           fields_hash[field] = column
         end
+      end
+    end
+
+    def run
+      row_begin = xlsx_ref.row_begin || 1
+      row_end = xlsx_ref.row_end || xlsx_ref.max_row
+
+      (row_begin..row_end).each do |row|
+        key_values = {}
+        fields_hash.each do |field, column|
+          key_values[field] = column.retrieve_value row, xlsx_ref.ws
+        end
+        mysql_ref.insert_one_record key_values
       end
     end
   end

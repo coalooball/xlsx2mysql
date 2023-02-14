@@ -13,7 +13,7 @@ module Xlsx2Mysql
       describe_table.map {|x| x[0]}
     end
     
-    def insert_one_record(table, key_values)
+    def insert_one_record(key_values)
       connect unless @my
       raise "MySQL is not connected!" unless @my
       keys = []
