@@ -1,16 +1,16 @@
 describe Xlsx2Mysql::Relative do
   res = relatives do 
     mysql do 
-      user 'user'
+      user 'core'
       password '123456'
-      host 'xxx.xxx.xxx.xx'
+      host 'xxx.xxx.xxx.80'
       port '3306'
-      database 'db'
-      table 'table'
+      database 'xxxxxx'
+      table 'xxxxx'
     end
   
     excel do 
-      path '123.xlsx'
+      path 'xxxx.xlsx'
     end
   
     associate do 
@@ -19,7 +19,7 @@ describe Xlsx2Mysql::Relative do
   end
 
   it "mysql configuration" do  
-    expect(res.mysql_ref.host).to eql('xxx.xxx.xxx.xx')  
+    expect(res.mysql_ref.host).to eql('xxx.xxx.xxx.80')  
   end
 
   it "excel configuration" do  

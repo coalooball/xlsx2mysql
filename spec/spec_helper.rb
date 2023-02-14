@@ -98,4 +98,5 @@ RSpec.configure do |config|
 end
 # $: << File.expand_path('../../lib', __FILE__)
 
+XlsxFilesPath = File.expand_path('../xlsx_files', __FILE__)
 require 'xlsx2mysql'
