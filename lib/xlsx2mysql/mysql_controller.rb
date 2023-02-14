@@ -1,22 +1,26 @@
 module Xlsx2Mysql
   class MysqlController
-    attr_accessor :host, :port, :user, :password, :database, :charset
+    include Configurable.with(
+      :host, :port, :user, :password, :database, :charset
+    )
+    attr_accessor :my
+    
     def initialize
-      @my = nil
+      my = nil
     end
 
     def connect(db_info_path, env)
       mysql_url = "mysql://#{user}:#{password}@#{host}:#{port}/#{database}?charset=#{charset}"
-      @my = Mysql.connect(mysql_url)
+      my = Mysql.connect(mysql_url)
     end
 
     def describe_table(table)
-      raise "MySQL is not connected!" unless @my
-      @my.query("DESCRIBE #{table}").entries
+      raise "MySQL is not connected!" unless my
+      my.query("DESCRIBE #{table}").entries
     end
     
     def insert_one_record(table, key_values)
-      raise "MySQL is not connected!" unless @my
+      raise "MySQL is not connected!" unless my
       keys = []
       values = []
       question_marks = []
@@ -31,7 +35,7 @@ INSERT INTO #{table}
 VALUES
 (#{question_marks.join(',')});
 SQL
-      @my.prepare(sql).execute(*values)
+      my.prepare(sql).execute(*values)
     end
   end
 end

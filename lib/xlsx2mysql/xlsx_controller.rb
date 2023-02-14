@@ -1,5 +1,5 @@
 module Xlsx2Mysql
   class XlsxController
-    attr_accessor :excel_path
+    include Configurable.with(:path, :worksheet)
   end
 end
