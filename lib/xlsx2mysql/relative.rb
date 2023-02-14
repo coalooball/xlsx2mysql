@@ -1,6 +1,9 @@
 module Xlsx2Mysql
   class Relative
+    attr_accessor :fields_hash
+
     def initialize(name = nil, &block)
+      @fields_hash = {}
       instance_eval(&block)
     end
 
@@ -10,6 +13,7 @@ module Xlsx2Mysql
 
     def mysql(&block)
       mysql_ref.configure(&block)
+      define_methods_with_field_name
     end
 
     def xlsx_ref
@@ -24,6 +28,16 @@ module Xlsx2Mysql
 
     def associate(&block)
       instance_eval(&block)
+    end
+
+    private
+
+    def define_methods_with_field_name
+      mysql_ref.acquire_table_fields.each do |field|
+        define_singleton_method field do |column|
+          fields_hash[field] = column
+        end
+      end
     end
   end
 end
