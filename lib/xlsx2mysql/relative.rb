@@ -64,7 +64,8 @@ module Xlsx2Mysql
       (row_begin..row_end).each do |row|
         key_values = {}
         fields_hash.each do |field, column|
-          key_values[field] = column.retrieve_value row, xlsx_ref.ws
+          cell_value = column.retrieve_value row, xlsx_ref.ws
+          key_values[field] = cell_value if cell_value
         end
         mysql_ref.insert_one_record key_values
       end

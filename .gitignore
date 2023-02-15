@@ -4,6 +4,7 @@
 
 # Ignore temporary Excel
 ~*
+*.gem
 
 # Ignore test files
 /config/*.yaml
