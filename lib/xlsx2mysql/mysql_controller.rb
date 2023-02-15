@@ -24,6 +24,7 @@ module Xlsx2Mysql
         question_marks << '?'
         values << value
       end
+      keys.map! {|x| '`'+ x + '`'}
       sql =<<SQL
 INSERT INTO #{table}
 (#{keys.join(',')})
