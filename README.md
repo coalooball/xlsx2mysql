@@ -22,9 +22,10 @@ relatives do
   end
 
   associate do # Configure relationships of Table and Sheet. Lefts are fields(used uppercase) of Table, rights are column index of Sheet.
-    ROW A /^(\d+)/                     # Use RegExp to group values. And the default pattern is /(.*)/.
-    PRDCP B, C                         # Specify multiple columns inserted in one field. 
-    DESC D /^(\d+)/, '-', E, '-', F    # Plain String is treated as delimiter.
+    FIELD0 A /^(\d+)/                     # Use RegExp to group values. And the default pattern is /(.*)/.
+    FIELD1 B, C                           # Specify multiple columns inserted in one field. 
+    FIELD2 B, C, D(/^(\d+)/)              # Specify multiple columns inserted in one field, meanwhile using RegExp. 
+    DESC   D(/^(\d+)/), '-', E, '-', F    # Plain String is treated as delimiter.
   end
 end
 ```
