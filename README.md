@@ -5,8 +5,9 @@ A gem for inserting data to mysql from Excel(xlsx)
 ```ruby
 require 'xlsx2mysql'
 
+# A relatives block have three blocks whick setup infomations of MySQL & Excel and relationship between Table(MySQL DB) and Sheet(Excel).
 relatives do 
-  mysql do 
+  mysql do # Configure MySQL information to specify the Table you want to insert.
     user 'xxxx'
     password '123456'
     host 'xxx.xxx.xxx.xxx'
@@ -15,14 +16,14 @@ relatives do
     table 'xxxxxx'
   end
 
-  excel do 
+  excel do # Configure Excel information to specify the worksheet inserting data to the MySQL's Table.
     path 'xxxx.xlsx'
     worksheet 'Sheet1'
   end
 
-  associate do 
-    ROW A
-    PRDCP B
+  associate do # Configure relationships of Table and Sheet. Lefts are fields(used uppercase) of Table, rights are column index of Sheet.
+    ROW A /^(\d+)/ # Use RegExp to group values. And the default pattern is /(.*)/.
+    PRDCP B, C     # Specify multiple columns inserted in one field. 
   end
 end
 ```

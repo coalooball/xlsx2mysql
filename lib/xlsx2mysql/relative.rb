@@ -51,8 +51,8 @@ module Xlsx2Mysql
 
     def define_methods_with_field_name
       mysql_ref.acquire_table_fields.each do |field|
-        define_singleton_method field do |column|
-          fields_hash[field] = column
+        define_singleton_method field do |*columns|
+          fields_hash[field] = columns.inject(:+)
         end
       end
     end
