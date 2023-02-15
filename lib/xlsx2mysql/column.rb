@@ -40,6 +40,7 @@ module Xlsx2Mysql
         else
         end
       end
+      res_array.join
     end
   end
 end
